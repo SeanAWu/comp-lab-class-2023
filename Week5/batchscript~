@@ -1,0 +1,19 @@
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=20
+#SBATCH --cpus-per-task=1
+#SBATCH --time=5:00:00
+#SBATCH --mem=2GB
+#SBATCH --job-name=GROMACS 1ns
+#SBATCH --mail-type=END
+#SBATCH --mail-user=sw4384@nyu.edu
+#SBATCH --output=slurm_%j.out
+
+module purge
+module load gromacs/openmpi/intel/2020.4 
+RUNDIR=$/scratch/work/courses/CHEM-GA-2671-2023fa/students/sw4384/comp-lab-class-2023/Week3/Input
+mkdir -p $RUNDIR
+DATADIR=$/scratch/work/courses/CHEM-GA-2671-2023fa/students/sw4384/comp-lab-class-2023/Week3/Data
+cd $RUNDIR
+stata -b do $DATADIR/data_01.do
+
