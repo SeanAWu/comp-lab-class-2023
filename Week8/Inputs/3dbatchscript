@@ -1,0 +1,35 @@
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=10
+#SBATCH --cpus-per-task=2
+#SBATCH --time=5:00:00
+#SBATCH --mem=2GB
+#SBATCH --job-name=densities
+#SBATCH --mail-type=END
+#SBATCH --mail-user=sw4384@nyu.edu
+#SBATCH --output=slurm_%j.out
+
+module purge
+source /scratch/work/courses/CHEM-GA-2671-2023fa/software/lammps-gcc-30Oct2022/setup_lammps.bash
+
+# Create the base directory
+mkdir -p "$base_dir"
+
+# Specify the base directory for organizing results
+base_dir="3d_density_results"
+
+# Loop through densities from 0.5 to 1.1 with a step of 0.1
+for density in $(seq 0.8 0.1 1.5); do
+    # Create a directory for each density
+    dir_name="density_${density//./_}"
+    result_dir="$base_dir/$dir_name"
+    mkdir -p "$result_dir"
+    cp 3dWCA.in "$result_dir"
+
+    # Run the command within the directory
+    cd "$result_dir"
+    mpirun lmp -var density "$density" -in 3dWCA.in > LOGILFE.log
+    cd ../../
+done
+
+
