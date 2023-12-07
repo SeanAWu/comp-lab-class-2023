@@ -1,0 +1,11 @@
+smiles, name
+C=C, Ethene
+C=O, Formaldehyde
+C#N, Hydrogen_Cyanide
+CCO, Ethanol
+CCC(=O)O, Propionic_Acid
+CN=C=O, Methyl_Isocyanate
+C1=CCC=CC1, 1-4-Cyclohexadiene
+C1=CC=CC=C1, Benzene
+C1=C(C)C=CC=C1, Toluene
+C1CCC2CCCCC2C1, Decalin
